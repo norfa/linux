@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\linux\boot\head.asm" />
+    <None Include="..\linux\kernel\asm.asm" />
+    <None Include="..\linux\kernel\system_call.asm" />
+    <None Include="..\linux\mm\page.asm" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\linux\fs\bitmap.c" />
+    <ClCompile Include="..\linux\fs\block_dev.c" />
+    <ClCompile Include="..\linux\fs\buffer.c" />
+    <ClCompile Include="..\linux\fs\char_dev.c" />
+    <ClCompile Include="..\linux\fs\exec.c" />
+    <ClCompile Include="..\linux\fs\fcntl.c" />
+    <ClCompile Include="..\linux\fs\file_dev.c" />
+    <ClCompile Include="..\linux\fs\file_table.c" />
+    <ClCompile Include="..\linux\fs\inode.c" />
+    <ClCompile Include="..\linux\fs\ioctl.c" />
+    <ClCompile Include="..\linux\fs\namei.c" />
+    <ClCompile Include="..\linux\fs\open.c" />
+    <ClCompile Include="..\linux\fs\pipe.c" />
+    <ClCompile Include="..\linux\fs\read_write.c" />
+    <ClCompile Include="..\linux\fs\stat.c" />
+    <ClCompile Include="..\linux\fs\super.c" />
+    <ClCompile Include="..\linux\fs\truncate.c" />
+    <ClCompile Include="..\linux\init\main.c" />
+    <ClCompile Include="..\linux\kernel\exit.c" />
+    <ClCompile Include="..\linux\kernel\fork.c" />
+    <ClCompile Include="..\linux\kernel\mktime.c" />
+    <ClCompile Include="..\linux\kernel\panic.c" />
+    <ClCompile Include="..\linux\kernel\printk.c" />
+    <ClCompile Include="..\linux\kernel\sched.c" />
+    <ClCompile Include="..\linux\kernel\signal.c" />
+    <ClCompile Include="..\linux\kernel\sys.c" />
+    <ClCompile Include="..\linux\kernel\traps.c" />
+    <ClCompile Include="..\linux\kernel\vsprintf.c" />
+    <ClCompile Include="..\linux\lib\close.c" />
+    <ClCompile Include="..\linux\mm\memory.c" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F70E1AE0-D324-4745-A4BA-D98DFAD5FE24}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>system</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <GenerateManifest />
+    <IncludePath>$(SolutionDir)linux\include</IncludePath>
+    <LibraryPath>$(OutDir);$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <AdditionalDependencies>chr_drv.lib;blk_drv.lib;lib.lib;math.lib</AdditionalDependencies>
+      <ImageHasSafeExceptionHandlers>
+      </ImageHasSafeExceptionHandlers>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+      <FixedBaseAddress>true</FixedBaseAddress>
+      <RandomizedBaseAddress>
+      </RandomizedBaseAddress>
+      <BaseAddress>0</BaseAddress>
+      <AdditionalOptions>$(IntDir)head.obj $(IntDir)asm.obj $(IntDir)system_call.obj $(IntDir)page.obj</AdditionalOptions>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>
+      </GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+    </Link>
+    <PreBuildEvent>
+      <Command>ML /c /nologo /Fo$(IntDir) ..\linux\boot\head.asm ..\linux\kernel\asm.asm ..\linux\kernel\system_call.asm ..\linux\mm\page.asm</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
